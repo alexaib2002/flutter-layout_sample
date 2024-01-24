@@ -85,14 +85,57 @@ class TitleSection extends StatelessWidget {
               ],
             ),
           ),
-          Icon(
-            Icons.star,
-            color: Colors.red,
-          ),
-          const Text('41'),
+          FavoriteWidget(),
         ],
       ),
     );
+  }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  const FavoriteWidget({
+    super.key,
+  });
+
+  @override
+  State<FavoriteWidget> createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isChecked = true;
+  int _count = 41;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          alignment: Alignment.centerRight,
+          icon: (_isChecked
+              ? const Icon(Icons.star)
+              : const Icon(Icons.star_border)),
+          onPressed: _toggleFavorite,
+        ),
+        SizedBox(
+          width: 18,
+          child: SizedBox(
+            child: Text('$_count'),
+          ),
+        )
+      ],
+    );
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      if (_isChecked) {
+        _count -= 1;
+        _isChecked = false;
+        return;
+      }
+      _count += 1;
+      _isChecked = true;
+    });
   }
 }
 
